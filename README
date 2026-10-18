@@ -6,20 +6,17 @@ Files
   player.py       interactive terminal client; run as your own player user
   bot.py          automatic player (same Client API) to fill the table
   setup_users.sh / teardown_users.sh   create/remove the Linux users and install to /opt/hollow
-  demo/           drive.py (scripted game), render.py (screenshots), security_test.sh, snapshot.sh
-  report.pdf      write-up
 
 Requirements: Linux, Python 3.8+ (standard library only for the game itself), root for user setup.
 
 Quick start (7 players)
   sudo ./setup_users.sh 7                 # users hw_mod, hw_alice, hw_bob, ...; installs to /opt/hollow
-  sudo -u hw_mod python3 /opt/hollow/moderator.py --players 7          # terminal 0 (moderator)
-  sudo -u hw_alice python3 /opt/hollow/player.py                       # terminals 1..N, one per player
-  sudo -u hw_bob   python3 /opt/hollow/player.py
-  sudo -u hw_carol python3 /opt/hollow/bot.py                          # or fill seats with bots
+  sudo -u hw_mod python3 /opt/hollow/moderator.py --players 7 --night 30 --talk 40 --vote 20 #times can be changed as needed
+  sudo -u hw_alice python3 /opt/hollow/player.py                       # terminals 1..N, one per player use any of the user's names
+  sudo -u hw_carol python3 /opt/hollow/bot.py                          # use the bot script for other players if u dont want to play against yourself
   ...
   The game starts when --players have joined, or when >= --min-players (5) have typed /ready.
-  Timers: --night 45 --talk 120 --vote 40 (seconds).  Add --seed N for a repeatable role deal.
+  Timers: --night 45 --talk 120 --vote 40 (seconds) by default if not explicitly changed when running moderator.  Add --seed N for a repeatable role deal.
   Type /help in a player terminal for the commands.  sudo ./teardown_users.sh removes everything.
 
 Rules in one paragraph
