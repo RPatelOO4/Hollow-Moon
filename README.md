@@ -1,6 +1,4 @@
-# Hollow-Moon
-
-Hollow Moon -- a Werewolves-style game over UNIX stream sockets (asyncio)
+Hollow Moon -- a Werewolves variant over UNIX stream sockets (asyncio)
 =========================================================================
 Files
   hollowcomm.py   the ONE communications library (Hub for the server, Client for players)
