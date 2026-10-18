@@ -25,7 +25,3 @@ Rules in one paragraph
   Day: talk (public), /w NAME text (2 whispers; everyone learns THAT you whispered, not to whom),
   /ready to move on early, then /vote NAME|none with open ballots; plurality lynches. Roles are
   revealed on death.  Village wins when no wolves remain; wolves win when they equal the rest.
-
-Reproduce the report's evidence
-  sudo python3 demo/drive.py && python3 demo/render.py   # needs: pip install pexpect pyte playwright
-  sudo bash demo/security_test.sh ; sudo bash demo/snapshot.sh
