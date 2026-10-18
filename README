@@ -1,0 +1,34 @@
+Hollow Moon -- a Werewolves-style game over UNIX stream sockets (asyncio)
+=========================================================================
+Files
+  hollowcomm.py   the ONE communications library (Hub for the server, Client for players)
+  moderator.py    game server / rules; runs as Linux user hw_mod
+  player.py       interactive terminal client; run as your own player user
+  bot.py          automatic player (same Client API) to fill the table
+  setup_users.sh / teardown_users.sh   create/remove the Linux users and install to /opt/hollow
+  demo/           drive.py (scripted game), render.py (screenshots), security_test.sh, snapshot.sh
+  report.pdf      write-up
+
+Requirements: Linux, Python 3.8+ (standard library only for the game itself), root for user setup.
+
+Quick start (7 players)
+  sudo ./setup_users.sh 7                 # users hw_mod, hw_alice, hw_bob, ...; installs to /opt/hollow
+  sudo -u hw_mod python3 /opt/hollow/moderator.py --players 7          # terminal 0 (moderator)
+  sudo -u hw_alice python3 /opt/hollow/player.py                       # terminals 1..N, one per player
+  sudo -u hw_bob   python3 /opt/hollow/player.py
+  sudo -u hw_carol python3 /opt/hollow/bot.py                          # or fill seats with bots
+  ...
+  The game starts when --players have joined, or when >= --min-players (5) have typed /ready.
+  Timers: --night 45 --talk 120 --vote 40 (seconds).  Add --seed N for a repeatable role deal.
+  Type /help in a player terminal for the commands.  sudo ./teardown_users.sh removes everything.
+
+Rules in one paragraph
+  Night: wolves chat privately and /kill NAME (plurality; a tie means no kill); the seer /peek NAME
+  sees "wolf / not wolf"; the healer /guard NAME (not the same person twice running; self once).
+  Day: talk (public), /w NAME text (2 whispers; everyone learns THAT you whispered, not to whom),
+  /ready to move on early, then /vote NAME|none with open ballots; plurality lynches. Roles are
+  revealed on death.  Village wins when no wolves remain; wolves win when they equal the rest.
+
+Reproduce the report's evidence
+  sudo python3 demo/drive.py && python3 demo/render.py   # needs: pip install pexpect pyte playwright
+  sudo bash demo/security_test.sh ; sudo bash demo/snapshot.sh
